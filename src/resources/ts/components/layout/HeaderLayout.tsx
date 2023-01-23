@@ -1,9 +1,23 @@
 import { AppBar, Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { MainRouters } from "../../router/MainRouters";
 
 export const HeaderLayout = () => {
-    const [subTitle, setSubTitle] = useState("SubTitle");
+    const authenticate = true;
+    const [subTitle, setSubTitle] = useState("");
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        const castedPathname = pathname.slice(1);
+        const arrayMainRouters = Object.entries(MainRouters);
+        const showRoute = arrayMainRouters.find(([key, value]) => {
+            return key == castedPathname;
+        });
+        if (showRoute && showRoute[1].authenticate === authenticate)
+            setSubTitle(showRoute[1].name);
+        else setSubTitle("Page Not Found");
+    }, [pathname]);
     return (
         <AppBar position="absolute">
             <Box height="60px" display="flex">
