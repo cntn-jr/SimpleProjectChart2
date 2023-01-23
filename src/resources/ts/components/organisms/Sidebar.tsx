@@ -10,6 +10,7 @@ import {
 import { grey } from "@mui/material/colors";
 import { useMatch, useNavigate } from "react-router";
 import { MainRouters } from "../../router/MainRouters";
+import { getAuth } from "../../util/getAuth";
 
 const sidebarTheme = createTheme({
     components: {
@@ -28,7 +29,7 @@ const sidebarTheme = createTheme({
 });
 
 export const Sidebar = () => {
-    const authentication = true;
+    const authentication = getAuth();
     const navigate = useNavigate();
     const onClickMenu = (path: string) => {
         navigate(path);

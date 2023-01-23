@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { Page404 } from "../components/pages/Page404";
+import { getAuth } from "../util/getAuth";
 import { MainRouters } from "./MainRouters";
 
 export const Router = () => {
-    const authentication = true;
+    const authentication = getAuth();
     return (
         <Routes>
             {Object.values(MainRouters).map((route) =>

@@ -2,9 +2,10 @@ import { AppBar, Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { MainRouters } from "../../router/MainRouters";
+import { getAuth } from "../../util/getAuth";
 
 export const HeaderLayout = () => {
-    const authenticate = true;
+    const authenticate = getAuth();
     const [subTitle, setSubTitle] = useState("");
     const { pathname } = useLocation();
 
