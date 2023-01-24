@@ -24,4 +24,8 @@ class AuthController extends Controller
         }
         return response()->json([], 401);
     }
+
+    public function getLoginUser(){
+        return Auth::user();
+    }
 }

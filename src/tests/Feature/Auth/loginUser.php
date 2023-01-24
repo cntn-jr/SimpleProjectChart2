@@ -35,5 +35,8 @@ class loginUser extends TestCase
             "password" => "password",
          ]);
          $response->assertStatus(200);
+         // ログインユーザ取得APIの実行
+         $response = $this->actingAs($user)->json('GET', 'api/login_user');
+         $response->assertStatus(200);
     }
 }
