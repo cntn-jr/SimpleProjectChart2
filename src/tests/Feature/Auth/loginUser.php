@@ -29,14 +29,28 @@ class loginUser extends TestCase
             "password" => Hash::make("password"),
         ]);
         $user = User::find($user->id);
-         // ログインAPIの実行
-         $response = $this->json('POST', 'api/login', [
+        // ログインAPIの実行
+        $response = $this->json('POST', 'api/login', [
             "email" => $user->email,
             "password" => "password",
-         ]);
-         $response->assertStatus(200);
-         // ログインユーザ取得APIの実行
-         $response = $this->actingAs($user)->json('GET', 'api/login_user');
-         $response->assertStatus(200);
+        ]);
+        $response->assertStatus(200);
+        // ログインユーザ取得APIの実行
+        $response = $this->actingAs($user)->json('GET', 'api/login_user');
+        $response->assertStatus(200);
+    }
+
+    public function test_logout()
+    {
+        // ユーザの作成
+        $user = User::factory()->create();
+        $user = User::find($user->id);
+        // ログアウトAPIの実行
+        $response = $this->actingAs($user)->json('POST', 'api/logout',);
+        $response->assertStatus(200);
+        // ログインユーザ取得APIの実行
+        $response = $this->json('GET', 'api/login_user');
+        $response->assertStatus(200);
+        $response->assertJson(["isAuth" => false]);
     }
 }

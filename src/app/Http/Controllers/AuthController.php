@@ -25,7 +25,18 @@ class AuthController extends Controller
         return response()->json([], 401);
     }
 
-    public function getLoginUser(){
-        return Auth::user();
+    public function logout()
+    {
+        $login_user_id = Auth::user()->id;
+        $login_user = User::find($login_user_id);
+        $login_user->tokens()->delete();
+        auth('web')->logout();
+    }
+
+    public function getLoginUser()
+    {
+        if (Auth::check())
+            return response()->json(Auth::user());
+        return response()->json(["isAuth" => false]);;
     }
 }
