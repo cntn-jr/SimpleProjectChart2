@@ -1,9 +1,11 @@
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../../recoil/userAtom";
+import { useAuth } from "./useAuth";
 
 export const useLoginForm = () => {
     const [user, setUser] = useRecoilState(userAtom);
+    const { loginMutation } = useAuth();
     const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setUser((oldUser) => {
             return { ...oldUser, email: e.target.value };
@@ -30,5 +32,8 @@ export const useLoginForm = () => {
             };
         });
     };
-    return { changeEmail, changePassword, resetPassword, resetUser };
+    const onClickLogin = () => {
+        loginMutation.mutate({ email: user.email, password: user.password });
+    };
+    return { changeEmail, changePassword, resetPassword, resetUser, onClickLogin };
 };

@@ -1,13 +1,11 @@
 import LoginIcon from "@mui/icons-material/Login";
 import { TextField } from "@mui/material";
 import { useLoginForm } from "../../hooks/User/useLoginForm";
-import { showAtom } from "../../util/showAtom";
 import { FormCard } from "../atoms/FormCard";
 import { FullWidthButton } from "../atoms/FullWidthButton";
 
 export const LoginForm = () => {
-    const { changeEmail, changePassword } = useLoginForm();
-    const { showUser } = showAtom();
+    const { changeEmail, changePassword, onClickLogin } = useLoginForm();
     return (
         <FormCard>
             <TextField
@@ -26,7 +24,7 @@ export const LoginForm = () => {
                 margin="normal"
                 onChange={changePassword}
             />
-            <FullWidthButton startIcon={<LoginIcon />} onClick={showUser}>
+            <FullWidthButton startIcon={<LoginIcon />} onClick={onClickLogin}>
                 LOG IN
             </FullWidthButton>
         </FormCard>
