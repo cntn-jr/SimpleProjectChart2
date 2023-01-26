@@ -2,12 +2,6 @@ import axios from "axios";
 
 export const AuthApi = () => {
 
-    const loginPreparing = () => {
-        return new Promise(() => {
-            axios.get("/sanctum/csrf-cookie");
-        });
-    };
-
     const login = async ({
         email,
         password,
@@ -24,5 +18,5 @@ export const AuthApi = () => {
         return data;
     };
 
-    return { loginPreparing, login, logout };
+    return { login, logout };
 };
