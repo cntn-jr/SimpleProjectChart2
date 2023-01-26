@@ -1,10 +1,12 @@
 import { AppBar, Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { useRecoilState } from "recoil";
+import { isAuthAtom } from "../../recoil/isAuthAtom";
 import { MainRouters } from "../../router/MainRouters";
 
 export const HeaderLayout = () => {
-    const authenticate = true;
+    const [isAuth, setIsAuth] = useRecoilState(isAuthAtom);
     const [subTitle, setSubTitle] = useState("");
     const { pathname } = useLocation();
 
@@ -14,7 +16,7 @@ export const HeaderLayout = () => {
         const showRoute = arrayMainRouters.find(([key, value]) => {
             return key == castedPathname;
         });
-        if (showRoute && showRoute[1].authenticate === authenticate)
+        if (showRoute && showRoute[1].authenticate === isAuth)
             setSubTitle(showRoute[1].name);
         else setSubTitle("Page Not Found");
     }, [pathname]);

@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
+import { LoginForm } from "../molecules/LoginForm";
 
 export const Login = () => {
-    return (<Typography component="h1" color="cyan"></Typography>);
+    return <LoginForm />;
 };
