@@ -1,5 +1,12 @@
-import { Typography } from "@mui/material";
+import { Stack } from "@mui/material";
+import { useSetting } from "../../hooks/Setting/useSetting";
+import { FullWidthButton } from "../atoms/FullWidthButton";
 
 export const Setting = () => {
-    return (<Typography component="h1" color="teal">Setting</Typography>);
+    const { onClickLogout } = useSetting();
+    return (
+        <Stack direction="row" mt="10px">
+            <FullWidthButton onClick={onClickLogout}>LOG OUT</FullWidthButton>
+        </Stack>
+    );
 };

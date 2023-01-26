@@ -1,10 +1,11 @@
+import axios from "axios";
 import { useMutation } from "react-query";
 import { useRecoilState } from "recoil";
 import { AuthApi } from "../../api/AuthApi";
 import { isAuthAtom } from "../../recoil/isAuthAtom";
 
 export const useAuth = () => {
-    const { login } = AuthApi();
+    const { login, logout } = AuthApi();
     const [isAuth, setIsAuth] = useRecoilState(isAuthAtom);
 
     const loginMutation = useMutation(login, {
@@ -13,8 +14,24 @@ export const useAuth = () => {
         },
         onSuccess: () => {
             setIsAuth(true);
+            axios.get("api/login_user").then((res) => {
+                console.log(res.data);
+            });
         },
     });
 
-    return { loginMutation };
+    const logoutMutation = useMutation(logout, {
+        onError: () => {
+            axios.get("api/login_user").then((res) => {
+                console.log(res.data);
+            });
+            console.log("is error");
+            setIsAuth(false);
+        },
+        onSuccess: () => {
+            setIsAuth(false);
+        },
+    });
+
+    return { loginMutation, logoutMutation };
 };
