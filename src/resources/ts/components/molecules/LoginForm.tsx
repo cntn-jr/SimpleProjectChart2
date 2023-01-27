@@ -5,7 +5,7 @@ import { FormCard } from "../atoms/FormCard";
 import { FullWidthButton } from "../atoms/FullWidthButton";
 
 export const LoginForm = () => {
-    const { changeEmail, changePassword, onClickLogin } = useLoginForm();
+    const { changeEmail, changePassword, onClickLogin, isLoadingLogin } = useLoginForm();
     return (
         <FormCard>
             <TextField
@@ -15,6 +15,7 @@ export const LoginForm = () => {
                 required
                 margin="normal"
                 onChange={changeEmail}
+                disabled={isLoadingLogin}
             />
             <TextField
                 type="password"
@@ -23,6 +24,7 @@ export const LoginForm = () => {
                 required
                 margin="normal"
                 onChange={changePassword}
+                disabled={isLoadingLogin}
             />
             <FullWidthButton startIcon={<LoginIcon />} onClick={onClickLogin}>
                 LOG IN

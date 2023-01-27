@@ -1,11 +1,12 @@
 import axios from "axios";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../../recoil/userAtom";
 import { useAuth } from "./useAuth";
 
 export const useLoginForm = () => {
     const [user, setUser] = useRecoilState(userAtom);
+    const [isLoadingLogin, setIsLoadingLogin] = useState<boolean>(false);
     const { loginMutation } = useAuth();
     const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setUser((oldUser) => {
@@ -34,12 +35,18 @@ export const useLoginForm = () => {
         });
     };
     const onClickLogin = () => {
-        axios.get("/sanctum/csrf-cookie").then(() => {
-            loginMutation.mutate({
-                email: user.email,
-                password: user.password,
+        setIsLoadingLogin(true);
+        axios
+            .get("/sanctum/csrf-cookie")
+            .then(() => {
+                loginMutation.mutate({
+                    email: user.email,
+                    password: user.password,
+                });
+            })
+            .finally(() => {
+                setIsLoadingLogin(false);
             });
-        });
     };
     return {
         changeEmail,
@@ -47,5 +54,6 @@ export const useLoginForm = () => {
         resetPassword,
         resetUser,
         onClickLogin,
+        isLoadingLogin
     };
 };
