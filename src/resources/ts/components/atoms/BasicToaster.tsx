@@ -15,9 +15,9 @@ export const BasicToaster = () => {
     return (
         <Snackbar
             open={toast.open}
-            autoHideDuration={10000}
+            autoHideDuration={8000}
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            // onClose={onClose}
+            onClose={onClose}
         >
             <Alert severity={toast.severity} onClose={onClose}>
                 {toast.message}
