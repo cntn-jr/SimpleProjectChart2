@@ -1,11 +1,15 @@
 import axios from "axios";
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
+import { isBackdropAtom } from "../../recoil/isBackdropAtom";
+import { loginLoadingAtom } from "../../recoil/loginLoadingAtom";
 import { userAtom } from "../../recoil/userAtom";
 import { useAuth } from "./useAuth";
 
 export const useLoginForm = () => {
     const [user, setUser] = useRecoilState(userAtom);
+    const [loading, setLoading] = useRecoilState(loginLoadingAtom);
+    const [isBackdrop, setIsBackdrop] = useRecoilState(isBackdropAtom);
     const { loginMutation } = useAuth();
     const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setUser((oldUser) => {
@@ -22,30 +26,26 @@ export const useLoginForm = () => {
             return { ...oldUser, password: "" };
         });
     };
-    const resetUser = () => {
-        setUser(() => {
-            return {
-                id: 0,
-                first_name: "",
-                last_name: "",
-                email: "",
-                password: "",
-            };
-        });
-    };
     const onClickLogin = () => {
-        axios.get("/sanctum/csrf-cookie").then(() => {
-            loginMutation.mutate({
-                email: user.email,
-                password: user.password,
+        setIsBackdrop(true);
+        setLoading(true);
+        axios
+            .get("/sanctum/csrf-cookie")
+            .then(() => {
+                loginMutation.mutate({
+                    email: user.email,
+                    password: user.password,
+                });
+            })
+            .catch(() => {
+                setLoading(false);
+                setIsBackdrop(false);
             });
-        });
     };
     return {
         changeEmail,
         changePassword,
         resetPassword,
-        resetUser,
         onClickLogin,
     };
 };
