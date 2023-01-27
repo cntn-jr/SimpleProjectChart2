@@ -20,7 +20,9 @@ export const BasicToaster = () => {
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
             onClose={onClose}
         >
-            <Alert severity={toast.severity}>{toast.message}</Alert>
+            <Alert severity={toast.severity} onClose={onClose}>
+                {toast.message}
+            </Alert>
         </Snackbar>
     );
 };
