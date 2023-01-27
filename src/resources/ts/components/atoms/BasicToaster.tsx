@@ -2,25 +2,25 @@ import { Alert, AlertColor, Snackbar } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { toastAtom } from "../../recoil/toastAtom";
 
-type Props = {
-    severity: AlertColor;
-    message: string;
-};
-
-export const BasicToaster = (props: Props) => {
-    const { severity, message } = props;
-    const [open, setOpen] = useRecoilState(toastAtom);
+export const BasicToaster = () => {
+    const [toast, setToast] = useRecoilState(toastAtom);
     const onClose = () => {
-        setOpen(false);
+        setToast(() => {
+            return {
+                open: false,
+                severity: "success",
+                message: "",
+            };
+        });
     };
     return (
         <Snackbar
-            open={open}
+            open={toast.open}
             autoHideDuration={10000}
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
             onClose={onClose}
         >
-            <Alert severity={severity}>{message}</Alert>
+            <Alert severity={toast.severity}>{toast.message}</Alert>
         </Snackbar>
     );
 };
