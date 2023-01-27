@@ -52,6 +52,11 @@ export const useAuth = () => {
         onSuccess: () => {
             setIsAuth(false);
             navigate("/login", { replace: true });
+            setToast({
+                open: true,
+                severity: "success",
+                message: "Successfully logged out.",
+            });
         },
     });
 
