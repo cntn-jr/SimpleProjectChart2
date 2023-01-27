@@ -1,12 +1,20 @@
 import { Stack } from "@mui/material";
-import { useSetting } from "../../hooks/Setting/useSetting";
+import { useAuth } from "../../hooks/User/useAuth";
 import { FullWidthButton } from "../atoms/FullWidthButton";
 
 export const Setting = () => {
-    const { onClickLogout } = useSetting();
+    const { logoutMutation } = useAuth();
+    const onClickLogout = () => {
+        logoutMutation.mutate();
+    };
     return (
         <Stack direction="row" mt="10px">
-            <FullWidthButton onClick={onClickLogout}>LOG OUT</FullWidthButton>
+            <FullWidthButton
+                onClick={onClickLogout}
+                loading={logoutMutation.isLoading}
+            >
+                LOG OUT
+            </FullWidthButton>
         </Stack>
     );
 };
