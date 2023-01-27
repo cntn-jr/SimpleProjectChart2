@@ -15,6 +15,12 @@ class CreateGanttchartsTable extends Migration
     {
         Schema::create('ganttcharts', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 63);
+            $table->date('start');
+            $table->date('end');
+            $table->string('type')->default('task');
+            $table->integer('progress')->default(100);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
