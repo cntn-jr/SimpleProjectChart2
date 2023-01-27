@@ -20,6 +20,8 @@ class CreateGanttchartsTable extends Migration
             $table->date('end');
             $table->string('type')->default('task');
             $table->integer('progress')->default(100);
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });
