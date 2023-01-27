@@ -1,11 +1,14 @@
 import LoginIcon from "@mui/icons-material/Login";
 import { TextField } from "@mui/material";
+import { useRecoilValue } from "recoil";
 import { useLoginForm } from "../../hooks/User/useLoginForm";
+import { loginLoadingAtom } from "../../recoil/loginLoadingAtom";
 import { FormCard } from "../atoms/FormCard";
 import { FullWidthButton } from "../atoms/FullWidthButton";
 
 export const LoginForm = () => {
-    const { changeEmail, changePassword, onClickLogin, isLoadingLogin } = useLoginForm();
+    const loading = useRecoilValue(loginLoadingAtom);
+    const { changeEmail, changePassword, onClickLogin } = useLoginForm();
     return (
         <FormCard>
             <TextField
@@ -15,7 +18,7 @@ export const LoginForm = () => {
                 required
                 margin="normal"
                 onChange={changeEmail}
-                disabled={isLoadingLogin}
+                disabled={loading}
             />
             <TextField
                 type="password"
@@ -24,9 +27,13 @@ export const LoginForm = () => {
                 required
                 margin="normal"
                 onChange={changePassword}
-                disabled={isLoadingLogin}
+                disabled={loading}
             />
-            <FullWidthButton startIcon={<LoginIcon />} onClick={onClickLogin}>
+            <FullWidthButton
+                startIcon={<LoginIcon />}
+                loading={loading}
+                onClick={onClickLogin}
+            >
                 LOG IN
             </FullWidthButton>
         </FormCard>

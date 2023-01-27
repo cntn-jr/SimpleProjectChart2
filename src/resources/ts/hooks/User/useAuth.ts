@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { AuthApi } from "../../api/AuthApi";
 import { isAuthAtom } from "../../recoil/isAuthAtom";
+import { loginLoadingAtom } from "../../recoil/loginLoadingAtom";
 
 export const useAuth = () => {
     const navigate = useNavigate();
     const { login, logout } = AuthApi();
     const [isAuth, setIsAuth] = useRecoilState(isAuthAtom);
+    const [loading, setLoading] = useRecoilState(loginLoadingAtom);
 
     const loginMutation = useMutation(login, {
         onError: () => {
@@ -16,6 +18,9 @@ export const useAuth = () => {
         onSuccess: () => {
             setIsAuth(true);
             navigate("/ganttchart", { replace: true });
+        },
+        onSettled: () => {
+            setLoading(false);
         },
     });
 
