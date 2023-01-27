@@ -5,11 +5,10 @@ import { toastAtom } from "../../recoil/toastAtom";
 export const BasicToaster = () => {
     const [toast, setToast] = useRecoilState(toastAtom);
     const onClose = () => {
-        setToast(() => {
+        setToast((old) => {
             return {
+                ...old,
                 open: false,
-                severity: "success",
-                message: "",
             };
         });
     };
@@ -18,7 +17,7 @@ export const BasicToaster = () => {
             open={toast.open}
             autoHideDuration={10000}
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            onClose={onClose}
+            // onClose={onClose}
         >
             <Alert severity={toast.severity} onClose={onClose}>
                 {toast.message}
