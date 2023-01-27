@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import { AuthApi } from "../../api/AuthApi";
 import { errorAtom } from "../../recoil/errorAtom";
 import { isAuthAtom } from "../../recoil/isAuthAtom";
+import { isBackdropAtom } from "../../recoil/isBackdropAtom";
 import { loginLoadingAtom } from "../../recoil/loginLoadingAtom";
 import { toastAtom } from "../../recoil/toastAtom";
 import { userAtom } from "../../recoil/userAtom";
@@ -16,6 +17,7 @@ export const useAuth = () => {
     const [loading, setLoading] = useRecoilState(loginLoadingAtom);
     const [error, setError] = useRecoilState(errorAtom);
     const [toast, setToast] = useRecoilState(toastAtom);
+    const [isBackdrop, setIsBackdrop] = useRecoilState(isBackdropAtom);
 
     const loginMutation = useMutation(login, {
         onError: () => {
@@ -42,6 +44,7 @@ export const useAuth = () => {
         },
         onSettled: () => {
             setLoading(false);
+            setIsBackdrop(false);
         },
     });
 
@@ -57,6 +60,9 @@ export const useAuth = () => {
                 severity: "success",
                 message: "Successfully logged out.",
             });
+        },
+        onSettled: () => {
+            setIsBackdrop(false);
         },
     });
 
