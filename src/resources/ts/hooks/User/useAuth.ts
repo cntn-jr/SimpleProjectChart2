@@ -5,6 +5,7 @@ import { AuthApi } from "../../api/AuthApi";
 import { errorAtom } from "../../recoil/errorAtom";
 import { isAuthAtom } from "../../recoil/isAuthAtom";
 import { loginLoadingAtom } from "../../recoil/loginLoadingAtom";
+import { toastAtom } from "../../recoil/toastAtom";
 import { userAtom } from "../../recoil/userAtom";
 
 export const useAuth = () => {
@@ -14,6 +15,7 @@ export const useAuth = () => {
     const [isAuth, setIsAuth] = useRecoilState(isAuthAtom);
     const [loading, setLoading] = useRecoilState(loginLoadingAtom);
     const [error, setError] = useRecoilState(errorAtom);
+    const [toast, setToast] = useRecoilState(toastAtom);
 
     const loginMutation = useMutation(login, {
         onError: () => {
@@ -22,6 +24,11 @@ export const useAuth = () => {
         onSuccess: () => {
             setIsAuth(true);
             navigate("/ganttchart", { replace: true });
+            setToast({
+                open: true,
+                severity: "success",
+                message: "Successfully logged in.",
+            });
             setError(false);
             setUser(() => {
                 return {
