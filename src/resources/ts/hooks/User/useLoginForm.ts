@@ -24,17 +24,6 @@ export const useLoginForm = () => {
             return { ...oldUser, password: "" };
         });
     };
-    const resetUser = () => {
-        setUser(() => {
-            return {
-                id: 0,
-                first_name: "",
-                last_name: "",
-                email: "",
-                password: "",
-            };
-        });
-    };
     const onClickLogin = () => {
         setLoading(true);
         axios
@@ -53,7 +42,6 @@ export const useLoginForm = () => {
         changeEmail,
         changePassword,
         resetPassword,
-        resetUser,
         onClickLogin,
     };
 };
