@@ -14,7 +14,7 @@ import { useGantt } from "../../hooks/Gantt/useGantt";
 export const GanttChart = () => {
     const { getGanttQuery } = useGantt();
     const { data } = getGanttQuery();
-    let [tasks, setTasks] = useState<Array<any>>([
+    let [tasks, setTasks] = useState<Array<Task>>([
         {
             type: "task",
             start: new Date(2020, 1, 1),
@@ -25,9 +25,8 @@ export const GanttChart = () => {
         },
     ]);
     useEffect(() => {
-        let newTasks: any[] = [];
-        data?.forEach((task) => {
-            console.log(task);
+        let newTasks: Task[] = [];
+        data!.forEach((task) => {
             let newTask = {
                 ...task,
                 start: new Date(task.start),
