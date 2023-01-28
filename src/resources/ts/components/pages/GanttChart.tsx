@@ -1,17 +1,51 @@
 import { Typography } from "@mui/material";
-import { useEffect } from "react";
+import {
+    Gantt,
+    Task,
+    EventOption,
+    StylingOption,
+    ViewMode,
+    DisplayOption,
+} from "gantt-task-react";
+import "gantt-task-react/dist/index.css";
+import { useEffect, useState } from "react";
 import { useGantt } from "../../hooks/Gantt/useGantt";
 
 export const GanttChart = () => {
     const { getGanttQuery } = useGantt();
     const { data } = getGanttQuery();
+    let [tasks, setTasks] = useState<Array<any>>([
+        {
+            type: "task",
+            start: new Date(2020, 1, 1),
+            end: new Date(2020, 1, 2),
+            name: "Idea",
+            id: "Task 1",
+            progress: 100,
+        },
+    ]);
     useEffect(() => {
-        console.log(data);
+        let newTasks: any[] = [];
+        data?.forEach((task) => {
+            console.log(task);
+            let newTask = {
+                ...task,
+                start: new Date(task.start),
+                end: new Date(task.end),
+            };
+            newTasks.push(newTask);
+        });
+        setTasks([...newTasks]);
     }, []);
 
     return (
-        <Typography component="h1" color="teal">
-            Gantt Chart
-        </Typography>
+        <Gantt
+            tasks={tasks}
+            listCellWidth=""
+            ganttHeight={500}
+            // viewDate={displayDate}
+            todayColor="rgba(2, 62, 138, 0.5)"
+            // onClick={onClickTask}
+        />
     );
 };
