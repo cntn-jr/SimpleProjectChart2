@@ -1,27 +1,24 @@
-import { Typography } from "@mui/material";
-import {
-    Gantt,
-    Task,
-    EventOption,
-    StylingOption,
-    ViewMode,
-    DisplayOption,
-} from "gantt-task-react";
+import { Box, CircularProgress } from "@mui/material";
 import "gantt-task-react/dist/index.css";
-import { useGantt } from "../../hooks/Gantt/useGantt";
+import { memo, Suspense } from "react";
+import { GanttChartContent } from "../organisms/GanttChartContent";
 
-export const GanttChart = () => {
-    const { getGanttQuery } = useGantt();
-    const { data } = getGanttQuery();
-
+export const GanttChart = memo(() => {
     return (
-        <Gantt
-            tasks={data!}
-            listCellWidth=""
-            ganttHeight={500}
-            // viewDate={displayDate}
-            todayColor="rgba(2, 62, 138, 0.5)"
-            // onClick={onClickTask}
-        />
+        <Suspense
+            fallback={
+                <Box
+                    sx={{
+                        my: "80px",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
+                    <CircularProgress color="primary" />
+                </Box>
+            }
+        >
+            <GanttChartContent />
+        </Suspense>
     );
-};
+});
