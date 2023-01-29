@@ -1,3 +1,4 @@
+import { blue } from "@mui/material/colors";
 import {
     Gantt,
     Task,
@@ -11,13 +12,16 @@ import { useGantt } from "../../hooks/Gantt/useGantt";
 export const GanttChartContent = () => {
     const { getGanttQuery } = useGantt();
     const { data } = getGanttQuery();
+    const viewDate = new Date();
+    viewDate.setDate(viewDate.getDate() + -4);
     return (
         <Gantt
             tasks={data!}
             listCellWidth=""
             ganttHeight={500}
-            // viewDate={displayDate}
-            todayColor="rgba(2, 62, 138, 0.5)"
+            viewDate={viewDate}
+            todayColor={blue[200]}
+            barProgressColor={blue[600]}
             // onClick={onClickTask}
         />
     );
