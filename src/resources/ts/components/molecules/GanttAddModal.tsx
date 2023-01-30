@@ -2,6 +2,11 @@ import { Stack, TextField } from "@mui/material";
 import { BasicModal } from "../atoms/BasicModal";
 import { FullWidthButton } from "../atoms/FullWidthButton";
 import AddIcon from "@mui/icons-material/Add";
+import { useScheduleAtom } from "../../hooks/Gantt/useScheduleAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { scheduleAtom } from "../../recoil/scheduleAtom";
+import { useGantt } from "../../hooks/Gantt/useGantt";
+import { isBackdropAtom } from "../../recoil/isBackdropAtom";
 
 type Props = {
     open: boolean;
@@ -12,6 +17,19 @@ export const GanttAddModal = (props: Props) => {
     const { open, onClose } = props;
     const today = new Date();
     const today_string = today.toISOString().split("T")[0];
+    const { changeName, changeStart, changeEnd } = useScheduleAtom();
+    const schedule = useRecoilValue(scheduleAtom);
+    const [isBackdrop, setIsBackDrop] = useRecoilState(isBackdropAtom);
+    const { createGanttMutation } = useGantt();
+    const onClickCreate = () => {
+        setIsBackDrop(true);
+        createGanttMutation.mutate({
+            name: schedule.name,
+            start: schedule.start,
+            end: schedule.end,
+        });
+        onClose();
+    };
     return (
         <BasicModal open={open} onClose={onClose}>
             <TextField
@@ -19,9 +37,9 @@ export const GanttAddModal = (props: Props) => {
                 label="Title"
                 fullWidth
                 required
-                // onChange={changeEmail}
+                onChange={changeName}
                 // error={error}
-                // disabled={loading}
+                disabled={isBackdrop}
             />
             <Stack direction="row">
                 <TextField
@@ -30,9 +48,9 @@ export const GanttAddModal = (props: Props) => {
                     fullWidth
                     required
                     defaultValue={today_string}
-                    // onChange={changeEmail}
+                    onChange={changeStart}
                     // error={error}
-                    // disabled={loading}
+                    disabled={isBackdrop}
                 />
                 <TextField
                     type="date"
@@ -40,12 +58,16 @@ export const GanttAddModal = (props: Props) => {
                     fullWidth
                     required
                     defaultValue={today_string}
-                    // onChange={changeEmail}
+                    onChange={changeEnd}
                     // error={error}
-                    // disabled={loading}
+                    disabled={isBackdrop}
                 />
             </Stack>
-            <FullWidthButton onClick={() => {}} startIcon={<AddIcon />}>
+            <FullWidthButton
+                onClick={onClickCreate}
+                startIcon={<AddIcon />}
+                loading={isBackdrop}
+            >
                 CREATE
             </FullWidthButton>
         </BasicModal>

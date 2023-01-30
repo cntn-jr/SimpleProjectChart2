@@ -9,7 +9,9 @@ import {
     DisplayOption,
 } from "gantt-task-react";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 import { useGantt } from "../../hooks/Gantt/useGantt";
+import { scheduleAtom } from "../../recoil/scheduleAtom";
 import { BasicButton } from "../atoms/BasicButton";
 import { GanttAddModal } from "../molecules/GanttAddModal";
 
