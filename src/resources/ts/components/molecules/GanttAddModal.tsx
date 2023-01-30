@@ -7,6 +7,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { scheduleAtom } from "../../recoil/scheduleAtom";
 import { useGantt } from "../../hooks/Gantt/useGantt";
 import { isBackdropAtom } from "../../recoil/isBackdropAtom";
+import { useMemo } from "react";
 
 type Props = {
     open: boolean;
@@ -30,6 +31,12 @@ export const GanttAddModal = (props: Props) => {
         });
         onClose();
     };
+
+    const disabled = useMemo(() => {
+        if (schedule.name && schedule.start && schedule.end) return false;
+        return true;
+    }, [schedule]);
+
     return (
         <BasicModal open={open} onClose={onClose}>
             <TextField
@@ -67,6 +74,7 @@ export const GanttAddModal = (props: Props) => {
                 onClick={onClickCreate}
                 startIcon={<AddIcon />}
                 loading={isBackdrop}
+                disabled={disabled}
             >
                 CREATE
             </FullWidthButton>

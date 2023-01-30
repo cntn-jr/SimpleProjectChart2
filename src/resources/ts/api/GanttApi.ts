@@ -1,10 +1,7 @@
 import axios from "axios";
 import { Task } from "gantt-task-react";
-import { useRecoilValue } from "recoil";
-import { scheduleAtom } from "../recoil/scheduleAtom";
 
 export const GanttApi = () => {
-    const schedule = useRecoilValue(scheduleAtom);
     const getGantt = async () => {
         const { data } = await axios.get<Array<Task>>("api/ganttchart/get");
         // startとendをDate型に変換する
