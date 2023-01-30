@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import { useGantt } from "../../hooks/Gantt/useGantt";
 import { BasicButton } from "../atoms/BasicButton";
-import { GanttAddModal } from "../atoms/GanttAddModal";
+import { GanttAddModal } from "../molecules/GanttAddModal";
 
 export const GanttChartContent = () => {
     const [open, setOpen] = useState<boolean>(false);

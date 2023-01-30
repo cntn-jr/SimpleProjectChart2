@@ -1,6 +1,6 @@
 import { Stack, TextField } from "@mui/material";
-import { BasicModal } from "./BasicModal";
-import { FullWidthButton } from "./FullWidthButton";
+import { BasicModal } from "../atoms/BasicModal";
+import { FullWidthButton } from "../atoms/FullWidthButton";
 import AddIcon from "@mui/icons-material/Add";
 
 type Props = {
