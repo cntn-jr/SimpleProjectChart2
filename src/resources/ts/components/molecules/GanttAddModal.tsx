@@ -34,7 +34,11 @@ export const GanttAddModal = (props: Props) => {
     };
 
     const disabled = useMemo(() => {
-        if (schedule.name && schedule.start && schedule.end) return false;
+        if (schedule.name && schedule.start && schedule.end) {
+            if (schedule.start.getTime() <= schedule.end.getTime()) {
+                return false;
+            }
+        }
         return true;
     }, [schedule]);
 
