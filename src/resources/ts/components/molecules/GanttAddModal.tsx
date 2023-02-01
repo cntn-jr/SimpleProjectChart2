@@ -16,20 +16,21 @@ type Props = {
 
 export const GanttAddModal = (props: Props) => {
     const { open, onClose } = props;
-    const today = new Date();
-    const today_string = today.toISOString().split("T")[0];
     const { changeName, changeStart, changeEnd } = useScheduleAtom();
     const schedule = useRecoilValue(scheduleAtom);
     const [isBackdrop, setIsBackDrop] = useRecoilState(isBackdropAtom);
     const { createGanttMutation } = useGantt();
     const onClickCreate = () => {
         setIsBackDrop(true);
-        createGanttMutation.mutate({
-            name: schedule.name,
-            start: schedule.start,
-            end: schedule.end,
-        });
-        onClose();
+        createGanttMutation
+            .mutateAsync({
+                name: schedule.name,
+                start: schedule.start,
+                end: schedule.end,
+            })
+            .then(() => {
+                onClose();
+            });
     };
 
     const disabled = useMemo(() => {
@@ -44,8 +45,9 @@ export const GanttAddModal = (props: Props) => {
                 label="Title"
                 fullWidth
                 required
+                defaultValue={schedule.name}
                 onChange={changeName}
-                // error={error}
+                error={createGanttMutation.isError}
                 disabled={isBackdrop}
             />
             <Stack direction="row">
@@ -54,9 +56,9 @@ export const GanttAddModal = (props: Props) => {
                     label="Start"
                     fullWidth
                     required
-                    defaultValue={today_string}
+                    defaultValue={schedule.start.toISOString().split("T")[0]}
                     onChange={changeStart}
-                    // error={error}
+                    error={createGanttMutation.isError}
                     disabled={isBackdrop}
                 />
                 <TextField
@@ -64,9 +66,9 @@ export const GanttAddModal = (props: Props) => {
                     label="End"
                     fullWidth
                     required
-                    defaultValue={today_string}
+                    defaultValue={schedule.end.toISOString().split("T")[0]}
                     onChange={changeEnd}
-                    // error={error}
+                    error={createGanttMutation.isError}
                     disabled={isBackdrop}
                 />
             </Stack>

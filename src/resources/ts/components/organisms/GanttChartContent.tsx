@@ -8,7 +8,7 @@ import {
     ViewMode,
     DisplayOption,
 } from "gantt-task-react";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { useGantt } from "../../hooks/Gantt/useGantt";
 import { BasicButton } from "../atoms/BasicButton";
 import { GanttAddModal } from "../molecules/GanttAddModal";
