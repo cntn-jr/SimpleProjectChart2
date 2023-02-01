@@ -20,4 +20,5 @@ Route::get('login_user', 'App\Http\Controllers\AuthController@getLoginUser');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('ganttchart/get', 'App\Http\Controllers\GanttchartController@index');
+    Route::post('ganttchart/store', 'App\Http\Controllers\GanttchartController@store');
 });

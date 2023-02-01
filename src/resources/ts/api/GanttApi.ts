@@ -16,5 +16,24 @@ export const GanttApi = () => {
         });
         return newTasks;
     };
-    return { getGantt };
+
+    const createGantt = async ({
+        name,
+        start,
+        end,
+    }: {
+        name: string;
+        start: Date;
+        end: Date;
+    }) => {
+        const start_string = start.toISOString().split("T")[0];
+        const end_string = end.toISOString().split("T")[0];
+        const { data } = await axios.post("api/ganttchart/store", {
+            name,
+            start: start_string,
+            end: end_string,
+        });
+        return data;
+    };
+    return { getGantt, createGantt };
 };
