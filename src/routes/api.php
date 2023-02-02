@@ -22,4 +22,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('ganttchart/get', 'App\Http\Controllers\GanttchartController@index');
     Route::post('ganttchart/store', 'App\Http\Controllers\GanttchartController@store');
     Route::put('ganttchart/update', 'App\Http\Controllers\GanttchartController@update');
+    Route::put('ganttchart/delete', 'App\Http\Controllers\GanttchartController@delete');
 });

@@ -76,4 +76,27 @@ class GanttchartController extends Controller
             return response()->json([], 401);
         };
     }
+
+    public function delete(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', 'exists:App\Models\Ganttchart,id',],
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->toArray();
+            $response['errors'] = ['id' => [],];
+            foreach ($errors as $error_key => $error) {
+                $response['errors'][$error_key] = $error;
+            };
+            return response()->json($response, 401);
+        }
+        $schedule_id = $request->id;
+        try {
+            $schedule = Ganttchart::find($schedule_id);
+            $schedule->delete();
+        } catch (Exception $err) {
+            return response()->json($err, 401);
+        }
+    }
 }
