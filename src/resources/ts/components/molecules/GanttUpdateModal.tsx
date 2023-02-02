@@ -8,6 +8,7 @@ import { scheduleAtom } from "../../recoil/scheduleAtom";
 import { useGantt } from "../../hooks/Gantt/useGantt";
 import { isBackdropAtom } from "../../recoil/isBackdropAtom";
 import { useMemo } from "react";
+import { DeleteIcon } from "../atoms/DeleteIcon";
 
 type Props = {
     open: boolean;
@@ -33,6 +34,8 @@ export const GanttUpdateModal = (props: Props) => {
                 onClose();
             });
     };
+
+    const deleteFunction = () => {};
 
     const disabled = useMemo(() => {
         if (schedule.name && schedule.start && schedule.end) {
@@ -85,6 +88,7 @@ export const GanttUpdateModal = (props: Props) => {
             >
                 UPDATE
             </FullWidthButton>
+            <DeleteIcon deleteFunction={deleteFunction} />
         </BasicModal>
     );
 };
