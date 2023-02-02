@@ -35,5 +35,27 @@ export const GanttApi = () => {
         });
         return data;
     };
-    return { getGantt, createGantt };
+
+    const updateGantt = async ({
+        id,
+        name,
+        start,
+        end,
+    }: {
+        id: string;
+        name: string;
+        start: Date;
+        end: Date;
+    }) => {
+        const start_string = start.toISOString().split("T")[0];
+        const end_string = end.toISOString().split("T")[0];
+        const { data } = await axios.put("api/ganttchart/update", {
+            id,
+            name,
+            start: start_string,
+            end: end_string,
+        });
+        return data;
+    };
+    return { getGantt, createGantt, updateGantt };
 };

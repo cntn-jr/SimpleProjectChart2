@@ -7,7 +7,7 @@ import { scheduleAtom } from "../../recoil/scheduleAtom";
 import { toastAtom } from "../../recoil/toastAtom";
 
 export const useGantt = () => {
-    const { getGantt, createGantt } = GanttApi();
+    const { getGantt, createGantt, updateGantt } = GanttApi();
     const queryClient = useQueryClient();
     const [toast, setToast] = useRecoilState(toastAtom);
     const [isBackdrop, setIsBackdrop] = useRecoilState(isBackdropAtom);
@@ -47,5 +47,35 @@ export const useGantt = () => {
         },
     });
 
-    return { getGanttQuery, createGanttMutation };
+    const updateGanttMutation = useMutation(updateGantt, {
+        onError: () => {
+            setToast({
+                open: true,
+                severity: "error",
+                message: "Could not update schedule!",
+            });
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries("gantt");
+            setError(false);
+            setToast({
+                open: true,
+                severity: "success",
+                message: "Successfully update schedule.",
+            });
+            setSchedule({
+                start: new Date(),
+                end: new Date(),
+                name: "",
+                id: "Task 0",
+                type: "task",
+                progress: 100,
+            });
+        },
+        onSettled: () => {
+            setIsBackdrop(false);
+        },
+    });
+
+    return { getGanttQuery, createGanttMutation, updateGanttMutation };
 };
