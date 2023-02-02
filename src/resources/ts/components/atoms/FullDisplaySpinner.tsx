@@ -7,7 +7,8 @@ export const FullDisplaySpinner = () => {
     return (
         <Backdrop
             sx={{
-                zIndex: 100,
+                // modalのz-index + 1
+                zIndex: "1301",
             }}
             open={open}
         >
