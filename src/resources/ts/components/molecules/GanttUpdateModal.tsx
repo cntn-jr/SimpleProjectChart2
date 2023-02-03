@@ -20,7 +20,7 @@ export const GanttUpdateModal = (props: Props) => {
     const { changeName, changeStart, changeEnd } = useScheduleAtom();
     const schedule = useRecoilValue(scheduleAtom);
     const [isBackdrop, setIsBackDrop] = useRecoilState(isBackdropAtom);
-    const { updateGanttMutation } = useGantt();
+    const { updateGanttMutation, deleteGanttMutation } = useGantt();
     const onClickUpdate = () => {
         setIsBackDrop(true);
         updateGanttMutation
@@ -35,7 +35,11 @@ export const GanttUpdateModal = (props: Props) => {
             });
     };
 
-    const deleteFunction = () => {};
+    const deleteFunction = () => {
+        deleteGanttMutation.mutateAsync({ id: schedule.id }).then(() => {
+            onClose();
+        });
+    };
 
     const disabled = useMemo(() => {
         if (schedule.name && schedule.start && schedule.end) {

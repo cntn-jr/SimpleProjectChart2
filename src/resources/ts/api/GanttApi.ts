@@ -57,5 +57,16 @@ export const GanttApi = () => {
         });
         return data;
     };
-    return { getGantt, createGantt, updateGantt };
+
+    const deleteGantt = async ({
+        id,
+    }: {
+        id: string;
+    }) => {
+        const { data } = await axios.put("api/ganttchart/delete", {
+            id,
+        });
+        return data;
+    };
+    return { getGantt, createGantt, updateGantt, deleteGantt };
 };
