@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import {
     Gantt,
@@ -50,15 +50,27 @@ export const GanttChartContent = () => {
             <Box width="100px" mb="20px">
                 <BasicButton onClick={onOpen}>ADD</BasicButton>
             </Box>
-            <Gantt
-                tasks={data!}
-                listCellWidth=""
-                ganttHeight={500}
-                viewDate={viewDate}
-                todayColor={blue[200]}
-                barProgressColor={blue[600]}
-                onClick={onOpenSchedule}
-            />
+            {data?.length ? (
+                <Gantt
+                    tasks={data!}
+                    listCellWidth=""
+                    ganttHeight={500}
+                    viewDate={viewDate}
+                    todayColor={blue[200]}
+                    barProgressColor={blue[600]}
+                    onClick={onOpenSchedule}
+                />
+            ) : (
+                <Box sx={{ width: "60%", mt: "50px", mx: "auto" }}>
+                    <Typography component="h3" variant="h4">
+                        Let's add a schedule!!
+                    </Typography>
+                    <Typography component="h3" variant="h6" mt="10px">
+                        Press the Add button to display a modal.
+                    </Typography>
+                </Box>
+            )}
+
             <GanttAddModal open={open} onClose={onClose} />
             <GanttUpdateModal open={openSchedule} onClose={onCloseSchedule} />
         </>
