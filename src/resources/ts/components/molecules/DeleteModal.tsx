@@ -1,5 +1,8 @@
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { BasicModal } from "../atoms/BasicModal";
+import { CancelButton } from "../atoms/CancelButton";
+import { DeleteButton } from "../atoms/DeleteButton";
+import { FullWidthButton } from "../atoms/FullWidthButton";
 
 type Props = {
     open: boolean;
@@ -8,7 +11,7 @@ type Props = {
 };
 
 export const DeleteModal = (props: Props) => {
-    const { open, onClose } = props;
+    const { open, onClose, onClickDelete } = props;
 
     return (
         <BasicModal open={open} onClose={onClose}>
@@ -19,6 +22,10 @@ export const DeleteModal = (props: Props) => {
                 Do you really want to delete it? Once deleted, it connot be
                 undone.
             </Typography>
+            <Stack direction="row" spacing="10px">
+                <DeleteButton onClick={onClickDelete} />
+                <CancelButton onClick={onClose} />
+            </Stack>
         </BasicModal>
     );
 };

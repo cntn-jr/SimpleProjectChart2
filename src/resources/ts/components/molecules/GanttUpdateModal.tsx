@@ -36,6 +36,7 @@ export const GanttUpdateModal = (props: Props) => {
     };
 
     const deleteFunction = () => {
+        setIsBackDrop(true);
         deleteGanttMutation.mutateAsync({ id: schedule.id }).then(() => {
             onClose();
         });
