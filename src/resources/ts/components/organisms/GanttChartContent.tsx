@@ -9,12 +9,17 @@ import {
     DisplayOption,
 } from "gantt-task-react";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 import { useGantt } from "../../hooks/Gantt/useGantt";
+import { scheduleAtom } from "../../recoil/scheduleAtom";
 import { BasicButton } from "../atoms/BasicButton";
 import { GanttAddModal } from "../molecules/GanttAddModal";
+import { GanttUpdateModal } from "../molecules/GanttUpdateModal";
 
 export const GanttChartContent = () => {
     const [open, setOpen] = useState<boolean>(false);
+    const [openSchedule, setOpenSchedule] = useState<boolean>(false);
+    const [schedule, setSchedule] = useRecoilState(scheduleAtom);
     const { getGanttQuery } = useGantt();
     const { data } = getGanttQuery();
     const viewDate = new Date();
@@ -24,6 +29,21 @@ export const GanttChartContent = () => {
     };
     const onClose = () => {
         setOpen(false);
+    };
+    const onOpenSchedule = (task: Task) => {
+        setSchedule(task);
+        setOpenSchedule(true);
+    };
+    const onCloseSchedule = () => {
+        setOpenSchedule(false);
+        setSchedule({
+            start: new Date(),
+            end: new Date(),
+            name: "",
+            id: "Task 0",
+            type: "task",
+            progress: 100,
+        });
     };
     return (
         <>
@@ -37,9 +57,10 @@ export const GanttChartContent = () => {
                 viewDate={viewDate}
                 todayColor={blue[200]}
                 barProgressColor={blue[600]}
-                // onClick={onClickTask}
+                onClick={onOpenSchedule}
             />
             <GanttAddModal open={open} onClose={onClose} />
+            <GanttUpdateModal open={openSchedule} onClose={onCloseSchedule} />
         </>
     );
 };

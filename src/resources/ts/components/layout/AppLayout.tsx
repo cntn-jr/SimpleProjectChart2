@@ -12,7 +12,11 @@ import { BodyLayout } from "./BodyLayout";
 import { HeaderLayout } from "./HeaderLayout";
 
 export const AppLayout = () => {
-    const theme = createTheme();
+    const theme = createTheme({
+        palette: {
+            secondary: grey,
+        },
+    });
     return (
         <ThemeProvider theme={theme}>
             <Box display="flex">
