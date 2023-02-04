@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { blue } from "@mui/material/colors";
+import { blue, grey } from "@mui/material/colors";
 import {
     Gantt,
     Task,
@@ -61,12 +61,23 @@ export const GanttChartContent = () => {
                     onClick={onOpenSchedule}
                 />
             ) : (
-                <Box sx={{ width: "60%", mt: "50px", mx: "auto" }}>
-                    <Typography component="h3" variant="h4">
+                <Box sx={{ width: "100%", mt: "50px" }}>
+                    <Typography
+                        component="h3"
+                        variant="h4"
+                        textAlign="center"
+                        color={grey[700]}
+                    >
                         Let's add a schedule!!
                     </Typography>
-                    <Typography component="h3" variant="h6" mt="10px">
-                        Press the Add button to display a modal.
+                    <Typography
+                        component="h3"
+                        variant="h6"
+                        mt="10px"
+                        textAlign="center"
+                        color={grey[700]}
+                    >
+                        Press the Add button to display a adding schedule modal.
                     </Typography>
                 </Box>
             )}
