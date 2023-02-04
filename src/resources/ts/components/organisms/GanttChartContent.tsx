@@ -54,7 +54,6 @@ export const GanttChartContent = () => {
                 <Gantt
                     tasks={data!}
                     listCellWidth=""
-                    ganttHeight={500}
                     viewDate={viewDate}
                     todayColor={blue[200]}
                     barProgressColor={blue[600]}
