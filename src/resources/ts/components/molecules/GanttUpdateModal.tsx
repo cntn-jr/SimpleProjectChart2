@@ -1,6 +1,6 @@
 import { Stack, TextField } from "@mui/material";
 import { BasicModal } from "../atoms/BasicModal";
-import { FullWidthButton } from "../atoms/FullWidthButton";
+import { FullWidthButton } from "../atoms/button/FullWidthButton";
 import CheckIcon from "@mui/icons-material/Check";
 import { useScheduleAtom } from "../../hooks/Gantt/useScheduleAtom";
 import { useRecoilState, useRecoilValue } from "recoil";

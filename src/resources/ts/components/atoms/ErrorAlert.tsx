@@ -1,5 +1,4 @@
 import { Alert, Snackbar } from "@mui/material";
-import { ReactNode } from "react";
 
 type Props = {
     open: boolean;

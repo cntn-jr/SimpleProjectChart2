@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { useGantt } from "../../hooks/Gantt/useGantt";
 import { scheduleAtom } from "../../recoil/scheduleAtom";
-import { BasicButton } from "../atoms/BasicButton";
+import { BasicButton } from "../atoms/button/BasicButton";
 import { GanttAddModal } from "../molecules/GanttAddModal";
 import { GanttUpdateModal } from "../molecules/GanttUpdateModal";
 

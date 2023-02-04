@@ -1,8 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { BasicModal } from "../atoms/BasicModal";
-import { CancelButton } from "../atoms/CancelButton";
-import { DeleteButton } from "../atoms/DeleteButton";
-import { FullWidthButton } from "../atoms/FullWidthButton";
+import { CancelButton } from "../atoms/button/CancelButton";
+import { DeleteButton } from "../atoms/button/DeleteButton";
 
 type Props = {
     open: boolean;

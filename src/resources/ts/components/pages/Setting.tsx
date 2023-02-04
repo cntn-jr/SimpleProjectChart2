@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { useAuth } from "../../hooks/User/useAuth";
 import { isBackdropAtom } from "../../recoil/isBackdropAtom";
-import { FullWidthButton } from "../atoms/FullWidthButton";
+import { FullWidthButton } from "../atoms/button/FullWidthButton";
 
 export const Setting = () => {
     const { logoutMutation } = useAuth();
