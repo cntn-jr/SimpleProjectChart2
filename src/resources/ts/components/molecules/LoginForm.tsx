@@ -8,7 +8,7 @@ import { loginLoadingAtom } from "../../recoil/loginLoadingAtom";
 import { userAtom } from "../../recoil/userAtom";
 import { ErrorAlert } from "../atoms/ErrorAlert";
 import { FormCard } from "../atoms/FormCard";
-import { FullWidthButton } from "../atoms/FullWidthButton";
+import { FullWidthButton } from "../atoms/button/FullWidthButton";
 
 export const LoginForm = () => {
     const loading = useRecoilValue(loginLoadingAtom);
