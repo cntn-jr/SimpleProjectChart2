@@ -1,4 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import {
+    Box,
+    FormControlLabel,
+    Radio,
+    RadioGroup,
+    Typography,
+} from "@mui/material";
 import { blue, grey } from "@mui/material/colors";
 import {
     Gantt,
@@ -17,6 +23,9 @@ import { GanttAddModal } from "../molecules/GanttAddModal";
 import { GanttUpdateModal } from "../molecules/GanttUpdateModal";
 
 export const GanttChartContent = () => {
+    const [view, setView] = useState<
+        ViewMode.Day | ViewMode.Month | ViewMode.Year
+    >(ViewMode.Day);
     const [open, setOpen] = useState<boolean>(false);
     const [openSchedule, setOpenSchedule] = useState<boolean>(false);
     const [schedule, setSchedule] = useRecoilState(scheduleAtom);
@@ -51,14 +60,37 @@ export const GanttChartContent = () => {
                 <BasicButton onClick={onOpen}>ADD</BasicButton>
             </Box>
             {data?.length ? (
-                <Gantt
-                    tasks={data!}
-                    listCellWidth=""
-                    viewDate={viewDate}
-                    todayColor={blue[200]}
-                    barProgressColor={blue[600]}
-                    onClick={onOpenSchedule}
-                />
+                <>
+                    <RadioGroup row defaultValue="day">
+                        <FormControlLabel
+                            value="year"
+                            control={<Radio />}
+                            label="Year"
+                            onChange={() => setView(ViewMode.Year)}
+                        />
+                        <FormControlLabel
+                            value="month"
+                            control={<Radio />}
+                            label="Month"
+                            onChange={() => setView(ViewMode.Month)}
+                        />
+                        <FormControlLabel
+                            value="day"
+                            control={<Radio />}
+                            label="Day"
+                            onChange={() => setView(ViewMode.Day)}
+                        />
+                    </RadioGroup>
+                    <Gantt
+                        tasks={data!}
+                        listCellWidth=""
+                        viewDate={viewDate}
+                        todayColor={blue[200]}
+                        barProgressColor={blue[600]}
+                        onClick={onOpenSchedule}
+                        viewMode={view}
+                    />
+                </>
             ) : (
                 <Box sx={{ width: "100%", mt: "50px" }}>
                     <Typography
